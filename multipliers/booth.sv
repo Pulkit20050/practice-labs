@@ -15,50 +15,49 @@ module booth#(parameter b=4)
   parameter idle=2'b11;
   logic [1:0] state;
   always@(state) begin
-    case(state) begin
+    case(state)
       idle: begin
-        A<=0;
-        Q<=0;
-        Q_1<=0;
-        product<=0; end
+        A=0;
+        Q=0;
+        Q_1=0;
+        product=0; end
       init: begin
-        A<=0; 
-        Q<=n;
-        Q_1<=0;
-        state<=check;
+        A=0; 
+        Q=n;
+        Q_1=0;
+        state=check;
       end
       check: begin
-        case({Q[0],Q_1}) begin
-          10: begin
-            A<=A-m;
-            state<=shift;
+        case({Q[0],Q_1})
+          2'b10: begin
+            A=A-m;
+            state=shift;
           end
-          01: begin
-            A<=A+m;
-            state<=shift;
+          2'b01: begin
+            A=A+m;
+            state=shift;
           end
-          default: state<=shift;
+          default: state=shift;
           endcase
         end
         shift: begin
           if(count==b-1) begin
-            state<=init;
-            product<={A,Q};
+            state=init;
+            product={A,Q};
           end
           else begin
-            {A,Q,Q_1}<={A[b-1], A, Q};
-            count<=count+1;
+            {A,Q,Q_1}={A[b-1], A, Q};
+            count=count+1;
           end
         end
         endcase
-      end
     end
       always@(reset, enable)
         if(reset) begin
-          state<=idle;
+          state=idle;
         end
         else if(enable) begin
-          state<=init; end
+          state=init; end
 endmodule
           
         
