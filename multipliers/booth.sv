@@ -3,17 +3,17 @@ module booth#(parameter b=4)
     input logic [b-1:0] m,
     input logic [b-1:0] n,
     input logic enable,
-    output logic [b-1:0] product);
+    output logic [2*b-1:0] product);
   logic [b-1:0] Q;
   logic [b-1:0] A;
   logic Q_1;
-  logic [b-1:0];
+  logic [b-1:0] count;
   //states declaration
   parameter init=2'b00;
   parameter check=2'b01;
   parameter shift=2'b10;
   parameter idle=2'b11;
-  logic state[1:0];
+  logic [1:0] state;
   always@(state) begin
     case(state) begin
       idle: begin
