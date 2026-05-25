@@ -41,7 +41,7 @@ module booth#(parameter b=4)
           endcase
         end
         shift: begin
-          if(count==b-1) begin
+          if(count==b-2) begin
             state=init;
             product={A,Q};
           end
